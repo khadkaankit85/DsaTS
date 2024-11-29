@@ -16,5 +16,5 @@ function selectionSort(arr: number[]): number[] {
   }
   return arr;
 }
-let arr = [1, 3, 6, -5, -3, 8, 4, 9, 2, 0;
+let arr = [1, 3, 6, -5, -3, 8, 4, 9, 2, 0];
 console.log(selectionSort(arr));
