@@ -1,18 +1,14 @@
 function throttleMe(num: number) {
-  console.log("I ran with number ", num);
+  console.log("i ran with number ", num);
 }
 
-function throttler<T extends any[]>(
-  fn: (...args: T) => void,
-  delay: number,
-): (...args: T) => void {
+function throttler<T extends any[]>(fn: (...args: T) => void, delay: number) {
   let lastCalled = 0;
 
   return (...args: T) => {
     const now = new Date().getTime();
 
     if (now - lastCalled < delay) {
-      console.log("delay not over so can't call the function rightnow");
       return;
     } else {
       lastCalled = now;
@@ -21,8 +17,8 @@ function throttler<T extends any[]>(
   };
 }
 
-const throttleMeThrottled = throttler(throttleMe, 100);
+const throttledMe = throttler(throttleMe, 200);
 
-for (let index = 0; index < 100; index++) {
-  throttleMeThrottled(7);
+for (let index = 0; index < 1000; index++) {
+  throttledMe(1);
 }
