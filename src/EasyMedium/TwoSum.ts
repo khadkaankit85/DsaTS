@@ -23,18 +23,18 @@ function twoSumBrute(nums: number[], target: number): number[] {
 const nums = [2, 7, 11, 15];
 twoSumBrute(nums, 9);
 
-function twoSum(nums: number[], target: number): number[] {
-  let hashmap = new Map<number, number>();
+function twoSum(nums: number[], target: number) {
+  const mapOfNums = new Map<number, number>();
 
-  for (let i = 0; i < nums.length; i++) {
-    let numNeeded = target - nums[i];
-    if (hashmap.has(numNeeded)) {
-      return [hashmap.get(numNeeded)!, i];
+  for (let index = 0; index < nums.length; index++) {
+    const element = nums[index];
+    const requiredNum = target - element;
+    if (mapOfNums.has(requiredNum)) {
+      return [index, mapOfNums.get(requiredNum)];
+    } else {
+      mapOfNums.set(element, index);
     }
-    hashmap.set(nums[i], i);
   }
-
-  return [];
 }
 
 console.log(twoSum(nums, 9));
