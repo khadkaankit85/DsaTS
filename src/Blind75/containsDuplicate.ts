@@ -7,14 +7,12 @@ class Solution {
    * @return {boolean}
    */
   hasDuplicate(nums: number[]) {
-    let store: Map<number, number> = new Map();
+    let store = new Set();
     for (let num in nums) {
       if (store.has(nums[num])) {
-        console.log(true);
         return true;
-      } else {
-        store.set(nums[num], nums[num]);
       }
+      store.add(nums[num]);
     }
     return false;
   }
