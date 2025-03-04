@@ -10,11 +10,52 @@
 //easiest solution is to get the count of all the numbers, make an array from that and then sort and return n number from that array
 class Solution {
   topKFrequent(nums: number[], k: number): number[] {
-    let topKElements = new Set();
-    let memory: Map<number, number> = new Map();
-    for (let num in nums) {
-      let currentCount = memory.get(nums[num]) || 0;
-      memory.set(nums[num], currentCount + 1);
+    const counter: Map<number, number> = new Map();
+    for (let i = 0; i < nums.length; i++) {
+      counter.set(nums[i], (counter.get(nums[i]) || 0) + 1);
     }
+
+    /*
+     * this approach is wrong, because we are using fill, which reuses  the same memory reference, so modifying one will modify all the filled elements
+    const filledArray: number[][] = Array(nums.length).fill(
+      Array(0).fill(null),
+    );
+    */
+    const filledArray: number[][] = Array(nums.length).map(() => []);
+
+    counter.forEach((currentNumberCount, currentKeyOrIndex) => {
+      /*console.log(filledArray);
+      console.log(
+        "the current count is ",
+        currentNumberCount,
+        " for the number ",
+        currentKeyOrIndex,);
+      */
+      if (!filledArray[currentNumberCount - 1]) {
+        filledArray[currentNumberCount - 1] = [];
+      }
+      filledArray[currentNumberCount - 1].push(currentKeyOrIndex);
+    });
+    const result = [];
+    for (let i = filledArray.length - 1; i >= 0; i--) {
+      let currentArr = filledArray[i];
+      if (currentArr) {
+        for (const num of currentArr) {
+          if (result.length >= k) {
+            break;
+          } else {
+            result.push(num);
+          }
+        }
+        if (result.length >= k) {
+          break;
+        }
+      }
+    }
+
+    return result;
   }
 }
+
+const solution = new Solution();
+console.log(solution.topKFrequent([1, 2, 2, 3, 3, 3], 2));
