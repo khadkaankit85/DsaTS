@@ -8,26 +8,39 @@ Output:["neet","code","love","you"]
 
 class Solution {
   encode(strs: string[]) {
+    if (strs.length < 1) return "";
     let result = "";
     for (let i = 0; i < strs.length; i++) {
-      result += strs[i] + "####";
+      let current = strs[i];
+      result += current.length + "#" + current;
     }
     return result;
   }
 
   decode(str: string) {
+    let i = 0;
     let result = [];
-    let temp = "";
-    for (let i = 0; i < str.length; i++) {
-      if (str[i] != "####") {
-        temp += str[i];
-      } else {
-        result.push(temp);
-        temp = "";
+    while (i < str.length) {
+      let j = i;
+      while (str[j] != "#") {
+        j++;
       }
+      let length = parseInt(str.slice(i, j));
+      i = j + 1;
+      if (length === 0) {
+        result.push("");
+        continue;
+      }
+      let currentString = str.slice(i, i + length);
+      result.push(currentString);
+      i = i + length;
     }
     return result;
   }
 }
 
 const solution = new Solution();
+const strs = ["neet", "code", "love", "you"];
+const encrypted = solution.encode(strs);
+console.log(encrypted);
+console.log(solution.decode(encrypted));
