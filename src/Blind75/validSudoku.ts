@@ -6,3 +6,20 @@ Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without
 Return true if the Sudoku board is valid, otherwise return false
 Note: A board does not need to be full or be solvable to be valid.
 */
+
+class Solution {
+  isValidSudoku(board: string[][]) {}
+}
+const solution = new Solution();
+const board = [
+  ["1", "2", ".", ".", "3", ".", ".", ".", "."],
+  ["4", ".", ".", "5", ".", ".", ".", ".", "."],
+  [".", "9", "8", ".", ".", ".", ".", ".", "3"],
+  ["5", ".", ".", ".", "6", ".", ".", ".", "4"],
+  [".", ".", ".", "8", ".", "3", ".", ".", "5"],
+  ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+  [".", ".", ".", ".", ".", ".", "2", ".", "."],
+  [".", ".", ".", "4", "1", "9", ".", ".", "8"],
+  [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+];
+console.log(solution.isValidSudoku(board));
