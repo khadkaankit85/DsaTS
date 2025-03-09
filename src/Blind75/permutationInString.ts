@@ -9,14 +9,38 @@ Output: true
  */
 
 class Solution {
+  /*
+   * why this didn't work? for whatever reason
   checkInclusion(s1: string, s2: string) {
-    let s2Arr = s2.split("");
-    let secondPointer = s2.length;
-    let currentTempSubString = "";
-    if (s1.length > s2.length) return false;
+    const permanentStore: Map<string, number> = new Map();
+    //created the store to check for string and its count
     for (let i = 0; i < s1.length; i++) {
-      currentTempSubString += s2[i];
+      permanentStore.set(s1[i], (permanentStore.get(s1[i]) || 0) + 1);
     }
-    while (secondPointer < s2Arr.length) {}
+    for (let i = 0; i < s2.length; i++) {
+      let store = new Map(permanentStore);
+      let rightPointer = i;
+      const current = s2[rightPointer];
+      while (
+        store.has(current) &&
+        store.get(current)! > 0 &&
+        rightPointer < s2.length
+      ) {
+        store.set(current, store.get(current)! - 1);
+        rightPointer++;
+      }
+      console.log(rightPointer, i);
+
+      if (rightPointer - i === s1.length - 2) {
+        return true;
+      }
+    }
+    return false;
   }
+  */
+  checkInclusion(s1: string, s2: string) {}
 }
+const solution = new Solution();
+let s1 = "abc",
+  s2 = "lecaabee";
+console.log(solution.checkInclusion(s1, s2));
