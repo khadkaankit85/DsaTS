@@ -8,7 +8,53 @@ Note: A board does not need to be full or be solvable to be valid.
 */
 
 class Solution {
-  isValidSudoku(board: string[][]) {}
+  isValidSudoku(board: string[][]) {
+    //to identify the current row
+    let row: Map<number, Set<string>> = new Map();
+    let column: Map<number, Set<string>> = new Map();
+    let smallBoard: Map<string, Set<string>> = new Map();
+
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        let currentCell = board[i][j];
+        if (currentCell != ".") {
+          //to check for the row
+          const currentRow = row.get(i);
+          if (currentRow?.has(currentCell)) {
+            return false;
+          } else {
+            const defaultRow = row.get(i) || new Set();
+            defaultRow.add(currentCell);
+            row.set(i, defaultRow);
+          }
+          //to check for the column
+          const currentColumn = column.get(j);
+          if (currentColumn?.has(currentCell)) {
+            return false;
+          } else {
+            const defaultColumn = column.get(j) || new Set();
+            defaultColumn.add(currentCell);
+            column.set(j, defaultColumn);
+          }
+          //to check in the 3X3 box
+          const currentBoardRow = Math.floor(i / 3);
+          const currentBoardColumn = Math.floor(j / 3);
+          const currentKey = `${currentBoardRow},${currentBoardColumn}`;
+
+          const currentRowInSmallBoard = smallBoard.get(currentKey);
+          if (currentRowInSmallBoard?.has(currentCell)) {
+            return false;
+          } else {
+            const defaultSmallBoardRow =
+              smallBoard.get(currentKey) || new Set();
+            defaultSmallBoardRow.add(currentCell);
+            smallBoard.set(currentKey, defaultSmallBoardRow);
+          }
+        }
+      }
+    }
+    return true;
+  }
 }
 const solution = new Solution();
 const board = [
