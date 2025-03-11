@@ -15,5 +15,37 @@ Output: 1
  */
 
 class Solution {
-  carFleet(target: number, position: number[], speed: number[]) {}
+  carFleet(target: number, position: number[], speed: number[]) {
+    let result = 0;
+    //pair the cars
+    const cars = position.map((v, i) => {
+      return [v, speed[i]];
+    });
+    const sortedCars = cars.sort((car1, car2) => car1[0] - car2[0]);
+
+    let timetaken = [];
+
+    for (let i = 0; i < sortedCars.length; i++) {
+      let currentTime = (target - sortedCars[i][0]) / sortedCars[i][1];
+      timetaken.push(currentTime);
+    }
+
+    let lastFleetTime = 0;
+    for (let i = timetaken.length - 1; i > 0; i--) {
+      if (timetaken[i] > lastFleetTime) {
+        lastFleetTime = timetaken[i];
+        result++;
+      }
+    }
+
+    return result;
+  }
 }
+
+const solution = new Solution();
+
+const target = 10,
+  position = [4, 1, 0, 7],
+  speed = [3, 2, 1, 5];
+
+console.log(solution.carFleet(target, position, speed));
