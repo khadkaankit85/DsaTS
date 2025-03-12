@@ -21,7 +21,7 @@ class Solution {
     const cars = position.map((v, i) => {
       return [v, speed[i]];
     });
-    const sortedCars = cars.sort((car1, car2) => car1[0] - car2[0]);
+    const sortedCars = cars.sort((car1, car2) => car2[0] - car1[0]);
 
     let timetaken = [];
 
@@ -29,15 +29,17 @@ class Solution {
       let currentTime = (target - sortedCars[i][0]) / sortedCars[i][1];
       timetaken.push(currentTime);
     }
+    console.log(sortedCars);
+
+    console.log(timetaken);
 
     let lastFleetTime = 0;
-    for (let i = timetaken.length - 1; i > 0; i--) {
+    for (let i = 0; i < timetaken.length; i++) {
       if (timetaken[i] > lastFleetTime) {
-        lastFleetTime = timetaken[i];
         result++;
+        lastFleetTime = timetaken[i];
       }
     }
-
     return result;
   }
 }
