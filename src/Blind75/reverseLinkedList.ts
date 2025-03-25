@@ -15,12 +15,12 @@ class ListNode {
 }
 
 class Solution {
-  reverseList(head: ListNode) {
+  reverseList(head: ListNode | null) {
     let prev = null
     let current = head
     if (!current) return current
     while (current) {
-      const next = current.next
+      const next: ListNode | null = current.next
       current.next = prev
       prev = current
       current = next
