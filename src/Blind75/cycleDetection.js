@@ -24,7 +24,7 @@ class Solution {
    * @param {ListNode} head
    * @return {boolean}
    */
-  hasCycle(head) {
+  hasCycle2(head) {
     //init two pointers, one fast and one slow
     let fastPointer = head;
     let slowpointer = head;
@@ -32,6 +32,23 @@ class Solution {
       fastPointer = fastPointer.next.next;
       slowpointer = slowpointer.next;
       if (slowpointer === fastPointer) return true;
+    }
+    return false;
+  }
+
+  /**
+   * @param {ListNode} head
+   * @return {boolean}
+   */
+
+  hasCycle(head) {
+    //init two pointers, one fast and one slow
+    const seen = new Set();
+    while (head.next) {
+      const current = head.next;
+      if (seen.has(current)) return true;
+      seen.add(current);
+      head = head.next;
     }
     return false;
   }
