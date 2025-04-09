@@ -1,0 +1,4 @@
+1. Reverse a Linked List
+    two pointer, one at previous and one at current, keep swapping the pointers until we reach the end 
+
+
