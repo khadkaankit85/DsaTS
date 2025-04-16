@@ -21,14 +21,12 @@ class Solution {
    * @return {TreeNode}
    */
   invertTree(root) {
-    if (!root) return null;
+    //store the ref to the right because we are gonna change it ok
+    if (!node) return null;
+    const temp = root.right;
+    root.right = root.left;
+    root.left = temp;
 
-    //if we have the root, then swap
-    const temp = root.left;
-    root.left = root.right;
-    root.right = temp;
-
-    //swap both left and right
     this.invertTree(root.left);
     this.invertTree(root.right);
     return root;
