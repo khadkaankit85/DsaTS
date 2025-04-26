@@ -17,7 +17,7 @@ Output: true
  * }
  */
 
-class Solution {
+class Solution1 {
   /**
    * @param {TreeNode} p
    * @param {TreeNode} q
@@ -49,5 +49,32 @@ class Solution {
       if (a[i] !== b[i]) return false;
     }
     return true;
+  }
+}
+
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     constructor(val = 0, left = null, right = null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+  /**
+   * @param {TreeNode} p
+   * @param {TreeNode} q
+   * @return {boolean}
+   */
+  isSameTree(p, q) {
+    //if both head are null
+    if (!p && !q) return true;
+    if (!p || !q) return false;
+    if (p.val !== q.val) return false;
+    //check if both left and right are true and return that, because thats for the child node
+    return this.isSameTree(p.left, q.left) && this.isSameTree(q.right, p.right);
   }
 }
