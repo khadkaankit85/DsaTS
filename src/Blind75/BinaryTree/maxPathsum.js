@@ -28,16 +28,16 @@ class Solution {
   maxPathSum(root) {
     let result = Number.NEGATIVE_INFINITY;
     function dfs(node) {
-      //find the maximum on the left and on the right
-      //find the value if we could split on the current node:)
-      //max of these is going to be the result
       if (!node) return 0;
-      //check wheather left would return max or right would
-      const leftMax = Math.max(0, dfs(node.left));
-      const rightMax = Math.max(0, dfs(node.right));
-      const splitPathSum = node.val + leftMax + rightMax;
-      result = Math.max(result, splitPathSum);
-      return node.val + Math.max(leftMax, rightMax);
+      //calc the value that it can return and calc the value if it doesn't have to return
+      const leftSum = dfs(node.left);
+      const rightSum = dfs(node.right);
+      const canReturnToParent = node.val + Math.max(leftSum, rightSum);
+      //if the current node doesn't need to return any value and it can branch out from itself to the left and to the right
+      const ifNoReturn =
+        node.val + Math.max(0, leftSum) + Math.max(0, rightSum);
+      result = Math.max(result, ifNoReturn);
+      return Math.max(canReturnToParent, 0);
     }
     dfs(root);
     return result;
