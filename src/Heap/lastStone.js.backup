@@ -1,0 +1,70 @@
+/*
+Last Stone Weight
+
+You are given an array of integers stones where stones[i] is the weight of the ith stone.
+We are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights x and y with x <= y. The result of this smash is:
+If x == y, both stones are destroyed, and
+If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+At the end of the game, there is at most one stone left.
+Return the weight of the last remaining stone. If there are no stones left, return 0.
+*/
+
+function lastStoneWeight(stones: number[]): number {
+  //turn the list into a max heap
+  //pop top two elements, compare them , and insert the differece in the max heap again
+  //if its the only element remaining in the max heap, then return that
+  const maxHeap = new MaxHeap(stones);
+  return 1;
+}
+
+class MaxHeap {
+  val: number[];
+
+  constructor(nums: number[]) {
+    this.val = this._buildHeap(nums, nums.length);
+  }
+
+  /**
+   * this heapify function creates a heap from a subtree considring i as the root of the tree and n as the length of the heap
+   */
+  private _heapify(arr: number[], n: number, i: number) {
+    let largest = i; //initialise largest as root
+    const leftChild = 2 * i + 1;
+    const rightChild = 2 * i + 2;
+
+    //if the leftChild is larger than the root element
+    if (leftChild < n && arr[leftChild] > arr[largest]) {
+      largest = leftChild;
+    }
+
+    //if the rightChild is larger than the root element
+    if (rightChild < n && arr[rightChild] > arr[largest]) {
+      largest = rightChild;
+    }
+
+    //if largest is not root
+    if (largest !== i) {
+      //swipe the elements to make sure that the largest is the root
+      [arr[i], arr[largest]] = [arr[largest], arr[i]];
+
+      //recursively heapify the subtree
+      this._heapify(arr, n, largest);
+    }
+  }
+  private _buildHeap(arr: number[], n: number) {
+    const startIndex = Math.floor(n / 2) - 1;
+    for (let i = startIndex; i >= 0; i--) {
+      this._heapify(arr, n, i);
+    }
+    return arr;
+  }
+
+  delete(): number | null {
+    const result = this.val.length ? this.val[0] : null;
+    return result;
+  }
+
+  insert() {}
+
+  getlength() {}
+}
